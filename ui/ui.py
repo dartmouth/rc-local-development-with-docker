@@ -55,4 +55,9 @@ def delete(todo_id):
 
 
 if __name__ == "__main__":
-    app.run(port=5002)
+    app.run(
+        # Challenge 1: listen on every network interface, not just the
+        # container's own localhost, so forwarded traffic can reach the app.
+        host="0.0.0.0",
+        port=5002
+    )

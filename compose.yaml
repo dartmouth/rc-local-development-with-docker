@@ -1,23 +1,52 @@
 services:
   api:
-    # Where is the Dockerfile for this service?
-    # build: ...
+    # Build the image from api/Dockerfile
+    build: ./api
 
-    # Which ports on this computer should forward into the container?
-    # ports:
-    #   - "HOST_PORT:CONTAINER_PORT"
+    # Challenge 1: forward port 5001 on this computer to 5001 in the container
+    ports:
+      - "5001:5001"
+
+    # Challenge 3: auto-reload when files change (made visible to the
+    # container by the bind mount below). Override the image's command to
+    # run Flask's dev server with its reloader instead of `python api.py`.
+    command: flask run --debug --host 0.0.0.0 --port 5001
 
     environment:
-      # Keep the database outside the code folder. (We'll see why later.)
+      # Tell the flask CLI which app to import for the command above.
+      FLASK_APP: api.py
+      # Keep the database outside the code folder, so it lands in the
+      # named volume below instead of the bind mount.
       DB_PATH: /data/todos.db
 
-    # What folders from this computer should the container be able to see?
-    # volumes:
-    #   - ...
+    volumes:
+      # Challenge 2: bind mount. Share ./api from this computer as /app,
+      # so edits show up inside the container immediately.
+      - ./api:/app
+      # Challenge 5: named volume. Docker keeps /data between runs.
+      - api-data:/data
 
-  # ui:
-  #   ...
+  ui:
+    build: ./ui
+
+    ports:
+      - "5002:5002"
+
+    # Challenge 3: auto-reload when files change (made visible to the
+    # container by the bind mount below). Override the image's command to
+    # run Flask's dev server with its reloader instead of `python ui.py`.
+    command: flask run --debug --host 0.0.0.0 --port 5002
+
+    environment:
+      # Tell the flask CLI which app to import for the command above.
+      FLASK_APP: ui.py
+      # Challenge 4: inside the UI container, localhost is the UI container.
+      # Reach the API by its service name on the compose network instead.
+      API_URL: http://api:5001
+
+    volumes:
+      - ./ui:/app
 
 # Named volumes: storage that Docker manages and keeps between runs
-# volumes:
-#   ...
+volumes:
+  api-data:

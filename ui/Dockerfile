@@ -1,17 +1,16 @@
 # Start from a base image that already has Python installed
-# See base images here
-# https://hub.docker.com/_/python
-
-# FROM ...
+FROM python:3.13-slim
 
 # Pick a folder inside the container to hold our code
-# WORKDIR ...
+WORKDIR /app
 
 # Copy our code from this computer into the image
-# COPY ...
+# (During development, the bind mount in compose.yaml covers this folder
+# with your live files. The copy still matters for running without it.)
+COPY . .
 
 # Install our Python dependencies
-# RUN ...
+RUN pip install -r requirements.txt
 
 # The command that starts the app when the container runs
-# CMD ...
+CMD ["python", "ui.py"]
