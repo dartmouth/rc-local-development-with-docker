@@ -35,7 +35,7 @@ def init_db():
 def hello():
     # Try editing this message while the app is running!
     return jsonify(
-        message="Hello from the API",
+        message="Hello from the API!!",
         hostname=socket.gethostname(),
     )
 

@@ -1,4 +1,7 @@
 # Start from a base image that already has Python installed
+# See base images here
+# https://hub.docker.com/_/python
+
 # FROM ...
 
 # Pick a folder inside the container to hold our code

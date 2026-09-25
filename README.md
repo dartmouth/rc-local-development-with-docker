@@ -33,8 +33,8 @@ git diff base finished  # see every change at once
 uv init
 uv sync
 
-cd api && python app.py            # terminal 1
-cd ui && python app.py             # terminal 2 (activate the venv here too)
+cd api && uv run api.py           # terminal 1
+cd ui && uv run ui.py             # terminal 2
 ```
 
 Open http://localhost:5002 and add a few to-dos. This is the goal: the same
