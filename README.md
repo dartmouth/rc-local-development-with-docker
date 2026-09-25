@@ -30,9 +30,8 @@ git diff base finished  # see every change at once
 ## Step 0: Run it on your computer, no Docker
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install -r api/requirements.txt -r ui/requirements.txt
+uv init
+uv sync
 
 cd api && python app.py            # terminal 1
 cd ui && python app.py             # terminal 2 (activate the venv here too)
