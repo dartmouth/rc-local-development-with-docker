@@ -1,7 +1,9 @@
 services:
   api:
     # Build the image from api/Dockerfile
-    build: ./api
+    build: 
+      context: ./api
+      dockerfile: Containerfile
 
     # Challenge 1: forward port 5001 on this computer to 5001 in the container
     ports:
@@ -27,7 +29,9 @@ services:
       - api-data:/data
 
   ui:
-    build: ./ui
+    build: 
+      context: ./ui
+      dockerfile: Containerfile
 
     ports:
       - "5002:5002"
