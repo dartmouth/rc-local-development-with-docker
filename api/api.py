@@ -7,7 +7,7 @@ from flask import Flask, jsonify, request
 
 # Where the database file lives. Defaults to a file next to this script,
 # but can be changed with the DB_PATH environment variable.
-DB_PATH = os.environ.get("DB_PATH", "todos.db")
+DB_PATH = os.environ.get("DB_PATH", "./data/todos.db")
 
 app = Flask(__name__)
 
