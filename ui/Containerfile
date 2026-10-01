@@ -4,6 +4,11 @@ FROM python:3.13-slim
 # Pick a folder inside the container to hold our code
 WORKDIR /app
 
+COPY requirements.txt .
+
+# Install our Python dependencies
+RUN pip install -r requirements.txt
+
 # Copy our code from this computer into the image
 # (During development, the bind mount in compose.yaml covers this folder
 # with your live files. The copy still matters for running without it.)
